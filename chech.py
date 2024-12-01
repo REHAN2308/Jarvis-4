@@ -4,43 +4,52 @@ import google.generativeai as genai
 import requests
 
 # Encoded API keys
-gemini_encoded_key = "QUl6YVN5QVFzMnJHY3Z4dVhXalBTT3hwSXliNjdqVU9SRzVVYndV"  # Encoded Gemini API key
-news_encoded_key = "MzVkNjIzMGUwMWY5NDI0ZGIwYjdlOWNmZTg1YTUzOWQ="  # Encoded News API key
+gemini_encoded_key = "QUl6YVN5QVFzMnJHY3Z4dVhXalBTT3hwSXliNjdqVU9SRzVVYndV"
+news_encoded_key = "MzVkNjIzMGUwMWY5NDI0ZGIwYjdlOWNmZTg1YTUzOWQ="
 
-# Decoding the API keys
+# Decoding API keys
 gemini_api_key = base64.b64decode(gemini_encoded_key).decode('utf-8')
 news_api_key = base64.b64decode(news_encoded_key).decode('utf-8')
 
 # Configure Gemini API
 genai.configure(api_key=gemini_api_key)
 
-# Custom styles
+# Custom styles for a futuristic interface
 st.set_page_config(page_title="Jarvis AI", page_icon="🤖", layout="wide")
 
 st.markdown(
     """
     <style>
     body {
-        background-color: #0f0f0f;
+        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
         color: #ffffff;
-        font-family: 'Courier New', monospace;
+        font-family: 'Roboto', sans-serif;
     }
     .stButton button {
-        background-color: #1f77b4;
-        color: white;
-        border-radius: 8px;
-        padding: 10px;
-        font-size: 18px;
+        background-color: #1c1c1c;
+        color: #00d4ff;
+        border: 2px solid #00d4ff;
+        border-radius: 10px;
+        font-size: 16px;
+        padding: 8px 15px;
+        transition: 0.3s ease;
+    }
+    .stButton button:hover {
+        background-color: #00d4ff;
+        color: #1c1c1c;
     }
     .stTextInput div {
-        background-color: #121212;
-        border-radius: 8px;
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border-radius: 10px;
+        padding: 10px;
     }
     .stSidebar {
-        background-color: #1a1a1a;
+        background-color: #121212;
+        color: #ffffff;
     }
     .stSidebar .sidebar-content {
-        color: #ffffff;
+        padding: 15px;
     }
     h1, h2, h3, h4 {
         color: #00d4ff;
@@ -72,6 +81,13 @@ def fetch_news():
     except Exception as e:
         return f"Error fetching news: {e}"
 
+# NLP functionality for creator-related questions
+def handle_creator_query(query):
+    keywords = ["creator", "developer", "made you", "created you", "built you"]
+    if any(keyword in query.lower() for keyword in keywords):
+        return "I am developed by Rehan Hussain in collaboration with Google technology."
+    return None
+
 # Jarvis Logo
 st.markdown(
     """
@@ -85,20 +101,21 @@ st.markdown(
 # Title
 st.title("🤖 Jarvis AI Assistant")
 
-# Menu
+# Sidebar navigation
 menu = ["Ask Jarvis", "Tech News", "About Jarvis"]
 choice = st.sidebar.radio("Navigation", menu)
 
 if choice == "Ask Jarvis":
     st.header("Ask Jarvis Anything!")
     user_input = st.text_input("Type your question here (e.g., 'Who is your creator?')")
-    if st.button("Get Response", key="response_button"):
+    if st.button("Get Response"):
         if user_input:
-            if "who is your creator" in user_input.lower():
-                response = "Rehan Hussain is my creator."
+            creator_response = handle_creator_query(user_input)
+            if creator_response:
+                response = creator_response
             else:
                 response = generate_jarvis_response(user_input)
-            st.write(f"**Jarvis:** {response}")
+            st.success(f"**Jarvis:** {response}")
         else:
             st.warning("Please enter a question to proceed.")
 
@@ -115,11 +132,11 @@ elif choice == "Tech News":
 
 elif choice == "About Jarvis":
     st.header("👤 About Jarvis")
-    st.write("Created by **Rehan Hussain**.")
+    st.write("Created by **Rehan Hussain** in collaboration with Google.")
     st.write(
         """
-        Jarvis is your personal AI assistant capable of answering questions,
-        fetching the latest technology news, and more.
+        Jarvis is your futuristic AI assistant, capable of answering questions,
+        fetching the latest technology news, and providing intelligent insights.
         """
     )
     st.markdown(
