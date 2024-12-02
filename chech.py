@@ -140,8 +140,8 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Title
-st.title("🤖 Jarvis")
+# Title without emoji
+st.title("Jarvis")
 
 # Fancy Divider
 st.markdown('<div class="fancy-divider"></div>', unsafe_allow_html=True)
@@ -156,7 +156,7 @@ if choice == "Ask Jarvis":
     # User question input box
     user_input = st.text_input("Ask a question... Press Enter to submit.", key="user_input")
     
-    # Button for submitting the question
+    # Button to generate response
     if st.button("Get Response"):
         if user_input:
             creator_response = handle_creator_query(user_input)
@@ -165,12 +165,9 @@ if choice == "Ask Jarvis":
             else:
                 response = generate_jarvis_response(user_input)
             st.success(f"**Jarvis:** {response}")
-        else:
-            st.warning("Please enter a question to proceed.")
     
     # Handle the Enter key press for response
-    if user_input and st.session_state.get("user_input") != user_input:
-        st.session_state["user_input"] = user_input
+    if user_input:
         creator_response = handle_creator_query(user_input)
         if creator_response:
             response = creator_response
