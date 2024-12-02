@@ -94,7 +94,7 @@ with st.sidebar:
     st.markdown("---")
     st.subheader("Developer Info")
     st.write("Created by **Rehan Hussain**.")
-    st.write("Contact: rehanhussain.dev@example.com")
+    st.write("Contact: rehan9644coc@gmail.com")
 
 # Function to interact with Gemini API
 def generate_jarvis_response(query):
