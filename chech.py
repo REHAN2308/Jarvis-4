@@ -14,14 +14,14 @@ news_api_key = base64.b64decode(news_encoded_key).decode('utf-8')
 # Configure Gemini API
 genai.configure(api_key=gemini_api_key)
 
-# Custom styles for a clean, futuristic UI (Dark Theme)
+# Custom styles for a black, futuristic UI (Dark Theme)
 st.set_page_config(page_title="Jarvis", page_icon="🤖", layout="wide")
 
 st.markdown(
     """
     <style>
     body {
-        background: #121212;
+        background: #000000;
         color: #E0E0E0;
         font-family: 'Roboto', sans-serif;
     }
@@ -187,7 +187,7 @@ elif choice == "Tech News":
         st.error("Unable to fetch news at this time.")
 
 elif choice == "About Jarvis":
-    st.header("👤 About Jarvis")
+    st.header("👾 About Jarvis")
     st.write("Created by **Rehan Hussain** in collaboration with Google.")
     st.write(
         """
@@ -202,4 +202,4 @@ elif choice == "About Jarvis":
         </div>
         """,
         unsafe_allow_html=True,
-    )
+    )  
