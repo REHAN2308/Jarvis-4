@@ -14,19 +14,19 @@ news_api_key = base64.b64decode(news_encoded_key).decode('utf-8')
 # Configure Gemini API
 genai.configure(api_key=gemini_api_key)
 
-# Custom styles for a clean, futuristic UI
+# Custom styles for a clean, futuristic UI (Dark Theme)
 st.set_page_config(page_title="Jarvis", page_icon="🤖", layout="wide")
 
 st.markdown(
     """
     <style>
     body {
-        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-        color: #ffffff;
+        background: #121212;
+        color: #E0E0E0;
         font-family: 'Roboto', sans-serif;
     }
     .stButton button {
-        background-color: #1c1c1c;
+        background-color: #333333;
         color: #00d4ff;
         border: 2px solid #00d4ff;
         border-radius: 10px;
@@ -36,17 +36,17 @@ st.markdown(
     }
     .stButton button:hover {
         background-color: #00d4ff;
-        color: #1c1c1c;
+        color: #333333;
     }
     .stTextInput div {
-        background-color: #1e1e1e;
-        color: #ffffff;
+        background-color: #333333;
+        color: #E0E0E0;
         border-radius: 10px;
         padding: 10px;
     }
     .stSidebar {
-        background-color: #121212;
-        color: #ffffff;
+        background-color: #1C1C1C;
+        color: #E0E0E0;
     }
     .stSidebar .sidebar-content {
         padding: 15px;
@@ -60,7 +60,7 @@ st.markdown(
         padding: 10px;
         border: 1px solid #333333;
         border-radius: 10px;
-        background-color: #1e1e1e;
+        background-color: #333333;
     }
     .user-message {
         color: #00bfff;
