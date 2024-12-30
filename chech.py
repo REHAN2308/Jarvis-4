@@ -125,7 +125,7 @@ def fetch_news():
 
 # NLP functionality for creator-related questions
 def handle_creator_query(query):
-    keywords = ["creator", "developer", "made you", "created you", "built you"]
+    keywords = ["creator", "developer", "made you", "created you", "built you", "designer", "design"]
     if any(keyword in query.lower() for keyword in keywords):
         return "I am developed by Rehan Hussain in collaboration with Google technology."
     return None
