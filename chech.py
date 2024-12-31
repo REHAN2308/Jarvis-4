@@ -4,7 +4,7 @@ import google.generativeai as genai
 import requests
 
 # Encoded API keys (new keys encoded)
-gemini_encoded_key = "QUl6YVN5QmtJMFJJZFRFUHlxUmo2VjVSYmIxY1dfTDAwTncxSlJv"  # Updated Gemini API Key
+gemini_encoded_key = "QUl6YVN5QVR0aWNFVUwzMXFjT1FzYjliOWRqUFVJb0xFNHc4TS4="  # Updated Gemini API Key
 news_encoded_key = "MzVkNjIzMGUwMWY5NDI0ZGIwYjdlOWNmZTg1YTUzOWQ="  # News API Key remains unchanged
 
 # Decoding API keys
