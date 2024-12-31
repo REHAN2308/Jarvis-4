@@ -3,14 +3,16 @@ import base64
 import google.generativeai as genai
 import requests
 
-# Encoded API keys
-gemini_encoded_key = "QWx6YVN5cUNPbmdGRkVwN09zNWFhTUYyRTJIaS1oSWVjX1FVeEVRNA=="
-news_encoded_key = "MzVkNjIzMGUwMWY5NDI0ZGIwYjdlOWNmZTg1YTUzOWQ="
+# Encoded API keys (new keys encoded)
+gemini_encoded_key = "QWx6YVN5cUNPbmdGRkVwN09zNWFhTUYyRTJIaS1oSWVjX1FVeEVRNA=="  # New Gemini API Key
+news_encoded_key = "MzVkNjIzMGUwMWY5NDI0ZGIwYjdlOWNmZTg1YTUzOWQ="  # News API Key remains unchanged
 
 # Decoding API keys
 gemini_api_key = base64.b64decode(gemini_encoded_key).decode('utf-8')
 news_api_key = base64.b64decode(news_encoded_key).decode('utf-8')
 
+# Configure Gemini API
+genai.configure(api_key=gemini_api_key)
 
 # Custom styles for a black, futuristic UI (Dark Theme)
 st.set_page_config(page_title="Jarvis", page_icon="🤖", layout="wide")
@@ -123,7 +125,7 @@ def fetch_news():
 
 # NLP functionality for creator-related questions
 def handle_creator_query(query):
-    keywords = ["creator", "developer", "made you", "created you", "built you"]
+    keywords = ["creator", "developer", "made you", "created you", "built you", "design", "designer"]
     if any(keyword in query.lower() for keyword in keywords):
         return "I am developed by Rehan Hussain in collaboration with Google technology."
     return None
