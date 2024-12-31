@@ -4,7 +4,7 @@ import google.generativeai as genai
 import requests
 
 # Encoded API keys (new keys encoded)
-gemini_encoded_key = "QUl6YVN5QXpmUE1yandRX19naTZMbEdXcUx6RjM5bnNsM2hvaXFV"  # New Gemini API Key
+gemini_encoded_key = "QUl6YVN5QmtJMFJJZFRFUHlxUmo2VjVSYmIxY1dfTDAwTncxSlJv"  # Updated Gemini API Key
 news_encoded_key = "MzVkNjIzMGUwMWY5NDI0ZGIwYjdlOWNmZTg1YTUzOWQ="  # News API Key remains unchanged
 
 # Decoding API keys
@@ -202,4 +202,4 @@ elif choice == "About Jarvis":
         </div>
         """,
         unsafe_allow_html=True,
-        )
+                )
