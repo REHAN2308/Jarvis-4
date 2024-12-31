@@ -11,8 +11,6 @@ news_encoded_key = "MzVkNjIzMGUwMWY5NDI0ZGIwYjdlOWNmZTg1YTUzOWQ="
 gemini_api_key = base64.b64decode(gemini_encoded_key).decode('utf-8')
 news_api_key = base64.b64decode(news_encoded_key).decode('utf-8')
 
-# Configure Gemini API
-genai.configure(api_key=gemini_api_key)
 
 # Custom styles for a black, futuristic UI (Dark Theme)
 st.set_page_config(page_title="Jarvis", page_icon="🤖", layout="wide")
