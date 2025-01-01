@@ -16,81 +16,122 @@ genai.configure(api_key=gemini_api_key)
 st.markdown(
     """
     <style>
-    /* Global body styling for dark mode */
+    /* Global body styling */
     body {
-        background: #121212; /* Dark background */
-        color: #E0E0E0; /* Light text color */
-        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #1E1E1E, #121212); /* Subtle gradient for depth */
+        color: #F5F5F5; /* Slightly off-white text for premium feel */
+        font-family: 'Poppins', sans-serif;
+        font-size: 16px;
     }
-    
-    /* Styling for headers */
+
+    /* Header styling */
     h1, h2, h3, h4, h5, h6 {
-        color: #00d4ff; /* Neon blue for titles */
+        color: #0DB3FF; /* Vibrant professional blue */
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
-    
-    /* Button styling */
-    .stButton button {
-        background-color: #1F1F1F; /* Dark button background */
-        color: #00d4ff; /* Neon blue text */
-        border: 2px solid #00d4ff;
-        border-radius: 8px;
-        padding: 10px 15px;
-        font-size: 16px;
-        transition: 0.3s ease;
-    }
-    .stButton button:hover {
-        background-color: #00d4ff; /* Neon blue hover effect */
-        color: #1F1F1F; /* Invert text and background */
-    }
-    
-    /* Text input styling */
-    input {
-        background-color: #1F1F1F; /* Dark background for text input */
-        color: #E0E0E0; /* Light text color */
-        border: 1px solid #333333;
-        border-radius: 8px;
-        padding: 10px;
-        font-size: 16px;
-    }
-    input::placeholder {
-        color: #888888; /* Light gray placeholder text */
-    }
-    
-    /* Sidebar styling */
-    .stSidebar {
-        background-color: #1C1C1C; /* Dark sidebar */
-        color: #E0E0E0; /* Light text */
-        padding: 15px;
-    }
-    
-    /* Sidebar title and text */
-    .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar p {
-        color: #00d4ff; /* Neon blue for sidebar titles */
-    }
-    
-    /* Chat history box */
-    .chat-history {
-        background-color: #1F1F1F; /* Dark background */
-        color: #E0E0E0; /* Light text */
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid #333333;
-    }
-    
-    /* Links styling */
-    a {
-        color: #00d4ff;
-        text-decoration: none;
-    }
-    a:hover {
-        color: #1E90FF; /* Slightly lighter blue on hover */
-    }
-    
+
     /* Divider styling */
     .fancy-divider {
-        border-top: 2px solid #00d4ff;
-        margin: 20px 0;
+        border-top: 2px solid #0DB3FF;
+        margin: 30px 0;
     }
+
+    /* Button styling */
+    .stButton button {
+        background: linear-gradient(90deg, #0DB3FF, #005BFF); /* Gradient button */
+        color: #FFFFFF;
+        border: none;
+        border-radius: 25px;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    .stButton button:hover {
+        background: linear-gradient(90deg, #005BFF, #0DB3FF); /* Reverse gradient */
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+    }
+
+    /* Text input styling */
+    input {
+        background: #1C1C1C; /* Sleek dark background */
+        color: #F5F5F5; /* Bright text */
+        border: 1px solid #333333;
+        border-radius: 15px;
+        padding: 12px;
+        font-size: 15px;
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+    input:hover {
+        border-color: #0DB3FF; /* Highlight border on hover */
+    }
+    input:focus {
+        outline: none;
+        border-color: #0DB3FF; /* Highlight border on focus */
+        box-shadow: 0px 0px 5px rgba(13, 179, 255, 0.5);
+    }
+    input::placeholder {
+        color: #BBBBBB; /* Neutral placeholder */
+        font-style: italic;
+    }
+
+    /* Sidebar styling */
+    .stSidebar {
+        background-color: #181818;
+        color: #F5F5F5;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Sidebar text and links */
+    .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar p {
+        color: #0DB3FF;
+    }
+    .stSidebar a {
+        color: #F5F5F5;
+        text-decoration: underline;
+    }
+    .stSidebar a:hover {
+        color: #0DB3FF;
+        text-decoration: none;
+    }
+
+    /* Chat history styling */
+    .chat-history {
+        background: #1C1C1C;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Link styling */
+    a {
+        color: #0DB3FF;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    a:hover {
+        text-decoration: underline;
+        color: #007BFF;
+    }
+
+    /* Tooltip styling */
+    .tooltip {
+        background-color: #0DB3FF;
+        color: #FFFFFF;
+        padding: 8px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-family: 'Poppins', sans-serif;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
     </style>
     """,
     unsafe_allow_html=True,
