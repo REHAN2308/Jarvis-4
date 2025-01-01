@@ -13,69 +13,94 @@ news_api_key = base64.b64decode(news_encoded_key).decode('utf-8')
 
 # Configure Gemini API
 genai.configure(api_key=gemini_api_key)
-
-# Custom styles for a black, futuristic UI (Dark Theme)
-st.set_page_config(page_title="Jarvis", page_icon="🤖", layout="wide")
-
 st.markdown(
     """
     <style>
+    /* Global body styling for dark mode */
     body {
-        background: #000000;
-        color: #E0E0E0;
+        background: #121212; /* Dark background */
+        color: #E0E0E0; /* Light text color */
         font-family: 'Roboto', sans-serif;
     }
+    
+    /* Styling for headers */
+    h1, h2, h3, h4, h5, h6 {
+        color: #00d4ff; /* Neon blue for titles */
+    }
+    
+    /* Button styling */
     .stButton button {
-        background-color: #333333;
-        color: #00d4ff;
+        background-color: #1F1F1F; /* Dark button background */
+        color: #00d4ff; /* Neon blue text */
         border: 2px solid #00d4ff;
-        border-radius: 10px;
+        border-radius: 8px;
+        padding: 10px 15px;
         font-size: 16px;
-        padding: 8px 15px;
         transition: 0.3s ease;
     }
     .stButton button:hover {
-        background-color: #00d4ff;
-        color: #333333;
+        background-color: #00d4ff; /* Neon blue hover effect */
+        color: #1F1F1F; /* Invert text and background */
     }
-    .stTextInput div {
-        background-color: #333333;
-        color: #E0E0E0;
-        border-radius: 10px;
+    
+    /* Text input styling */
+    input {
+        background-color: #1F1F1F; /* Dark background for text input */
+        color: #E0E0E0; /* Light text color */
+        border: 1px solid #333333;
+        border-radius: 8px;
         padding: 10px;
+        font-size: 16px;
     }
+    input::placeholder {
+        color: #888888; /* Light gray placeholder text */
+    }
+    
+    /* Sidebar styling */
     .stSidebar {
-        background-color: #1C1C1C;
-        color: #E0E0E0;
-    }
-    .stSidebar .sidebar-content {
+        background-color: #1C1C1C; /* Dark sidebar */
+        color: #E0E0E0; /* Light text */
         padding: 15px;
     }
-    h1, h2, h3, h4 {
-        color: #00d4ff;
+    
+    /* Sidebar title and text */
+    .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar h4, .stSidebar p {
+        color: #00d4ff; /* Neon blue for sidebar titles */
     }
+    
+    /* Chat history box */
     .chat-history {
-        max-height: 400px;
-        overflow-y: auto;
+        background-color: #1F1F1F; /* Dark background */
+        color: #E0E0E0; /* Light text */
         padding: 10px;
-        border: 1px solid #333333;
         border-radius: 10px;
-        background-color: #333333;
+        border: 1px solid #333333;
     }
-    .user-message {
-        color: #00bfff;
+    
+    /* Links styling */
+    a {
+        color: #00d4ff;
+        text-decoration: none;
     }
-    .jarvis-response {
-        color: #32cd32;
+    a:hover {
+        color: #1E90FF; /* Slightly lighter blue on hover */
     }
+    
+    /* Divider styling */
     .fancy-divider {
-        border-top: 3px solid #00d4ff;
+        border-top: 2px solid #00d4ff;
         margin: 20px 0;
     }
     </style>
     """,
     unsafe_allow_html=True,
 )
+
+
+# Updating the main app content with consistent colors
+st.markdown('<div class="fancy-divider"></div>', unsafe_allow_html=True)
+st.header("Ask Jarvis Anything!")
+st.markdown('<div class="fancy-divider"></div>', unsafe_allow_html=True)
 
 # Sidebar: Developer Info and Tech Tips
 with st.sidebar:
