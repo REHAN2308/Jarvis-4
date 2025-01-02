@@ -18,48 +18,50 @@ st.markdown(
     <style>
     /* Global body styling */
     body {
-        background: linear-gradient(135deg, #1E1E1E, #121212); /* Subtle gradient for depth */
-        color: #F5F5F5; /* Slightly off-white text for premium feel */
+        background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+        color: #E8E8E8;
         font-family: 'Poppins', sans-serif;
         font-size: 16px;
+        margin: 0;
+        padding: 0;
     }
 
     /* Header styling */
     h1, h2, h3, h4, h5, h6 {
-        color: #0DB3FF; /* Vibrant professional blue */
+        color: #56CCF2;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 1.2px;
     }
 
-    /* Divider styling */
+    /* Fancy divider */
     .fancy-divider {
-        border-top: 2px solid #0DB3FF;
+        border-top: 2px solid #56CCF2;
         margin: 30px 0;
     }
 
     /* Button styling */
     .stButton button {
-        background: linear-gradient(90deg, #0DB3FF, #005BFF); /* Gradient button */
+        background: linear-gradient(90deg, #1F4037, #99F2C8);
         color: #FFFFFF;
         border: none;
         border-radius: 25px;
         padding: 12px 20px;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: bold;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
         cursor: pointer;
     }
     .stButton button:hover {
-        background: linear-gradient(90deg, #005BFF, #0DB3FF); /* Reverse gradient */
+        background: linear-gradient(90deg, #99F2C8, #1F4037);
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
         transform: translateY(-2px);
     }
 
     /* Text input styling */
     input {
-        background: #1C1C1C; /* Sleek dark background */
-        color: #F5F5F5; /* Bright text */
+        background: #1C1C1C;
+        color: #E8E8E8;
         border: 1px solid #333333;
         border-radius: 15px;
         padding: 12px;
@@ -68,38 +70,30 @@ st.markdown(
         transition: all 0.3s ease;
     }
     input:hover {
-        border-color: #0DB3FF; /* Highlight border on hover */
+        border-color: #56CCF2;
     }
     input:focus {
         outline: none;
-        border-color: #0DB3FF; /* Highlight border on focus */
-        box-shadow: 0px 0px 5px rgba(13, 179, 255, 0.5);
+        border-color: #56CCF2;
+        box-shadow: 0px 0px 5px rgba(86, 204, 242, 0.5);
     }
     input::placeholder {
-        color: #BBBBBB; /* Neutral placeholder */
+        color: #BBBBBB;
         font-style: italic;
     }
 
     /* Sidebar styling */
     .stSidebar {
-        background-color: #181818;
-        color: #F5F5F5;
+        background: linear-gradient(135deg, #1F4037, #1C1C1C);
+        color: #E8E8E8;
         padding: 20px;
         border-radius: 12px;
         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
     }
 
-    /* Sidebar text and links */
-    .stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar p {
-        color: #0DB3FF;
-    }
-    .stSidebar a {
-        color: #F5F5F5;
-        text-decoration: underline;
-    }
-    .stSidebar a:hover {
-        color: #0DB3FF;
-        text-decoration: none;
+    /* Ensure navigation text is always white */
+    .stSidebar .radio > label {
+        color: #FFFFFF !important;
     }
 
     /* Chat history styling */
@@ -108,28 +102,18 @@ st.markdown(
         border-radius: 12px;
         padding: 15px;
         box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
+        color: #FFFFFF;
     }
 
-    /* Link styling */
+    /* Links styling */
     a {
-        color: #0DB3FF;
+        color: #56CCF2;
         text-decoration: none;
-        font-weight: 600;
+        font-weight: bold;
     }
     a:hover {
         text-decoration: underline;
-        color: #007BFF;
-    }
-
-    /* Tooltip styling */
-    .tooltip {
-        background-color: #0DB3FF;
-        color: #FFFFFF;
-        padding: 8px;
-        border-radius: 5px;
-        font-size: 14px;
-        font-family: 'Poppins', sans-serif;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        color: #99F2C8;
     }
 
     </style>
@@ -137,26 +121,21 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# Initialize session state for chat history
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
 
-# Updating the main app content with consistent colors
-st.markdown('<div class="fancy-divider"></div>', unsafe_allow_html=True)
-st.header("Ask Jarvis Anything!")
-st.markdown('<div class="fancy-divider"></div>', unsafe_allow_html=True)
-
-# Sidebar: Developer Info and Tech Tips
+# Sidebar: Chat History and Navigation
 with st.sidebar:
-    st.subheader("Tech Tips")
-    tips = [
-        "Keep your software up to date.",
-        "Use strong, unique passwords.",
-        "Enable two-factor authentication.",
-        "Avoid clicking on suspicious links.",
-        "Regularly back up your data.",
-        "Use antivirus software.",
-    ]
-    for tip in tips:
-        st.write(f"- {tip}")
-
+    st.subheader("Navigation")
+    menu = ["Ask Jarvis", "Tech News", "About Jarvis"]
+    choice = st.radio("Select a feature:", menu)
+    st.subheader("Chat History")
+    if st.session_state.chat_history:
+        for idx, message in enumerate(st.session_state.chat_history):
+            st.write(f"{idx + 1}. {message}")
+    else:
+        st.write("No chat history yet.")
     st.markdown("---")
     st.subheader("Developer Info")
     st.write("Created by **Rehan Hussain**.")
@@ -175,97 +154,44 @@ def generate_jarvis_response(query):
 def fetch_news():
     news_url = f'https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey={news_api_key}'
     try:
-        # Disabling SSL verification temporarily (for troubleshooting)
         news_response = requests.get(news_url, verify=False)
-        
-        # Parse the JSON response
         news_data = news_response.json()
         if news_data['status'] == 'ok':
             return [(article['title'], article['description'], article['url']) for article in news_data['articles'][:5]]
         else:
-            st.error(f"API Error: {news_data.get('message', 'Unknown error')}")
             return None
     except requests.exceptions.RequestException as e:
-        st.error(f"Error fetching news: {e}")
         return None
 
-# NLP functionality for creator-related questions
-def handle_creator_query(query):
-    keywords = ["creator", "developer", "made you", "created you", "built you", "design", "designer"]
-    if any(keyword in query.lower() for keyword in keywords):
-        return "I am developed by Rehan Hussain in collaboration with Google technology."
-    return None
-
-# Jarvis Logo
-st.markdown(
-    """
-    <div style="text-align: center;">
-        <img src="https://i.imgur.com/ZkNlQQf.png" alt="Jarvis Logo" style="width: 150px; margin-bottom: 20px;">
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-# Title without emoji
-st.title("Jarvis")
-
-# Fancy Divider
-st.markdown('<div class="fancy-divider"></div>', unsafe_allow_html=True)
-
-# Sidebar navigation
-menu = ["Ask Jarvis", "Tech News", "About Jarvis"]
-choice = st.sidebar.radio("Navigation", menu)
+# Title
+st.title("JARVIS")
 
 if choice == "Ask Jarvis":
     st.header("Ask Jarvis Anything!")
-    
-    # User question input box
-    user_input = st.text_input("Ask a question... Press Enter to submit.", key="user_input")
-    
-    # Button to generate response
-    if st.button("Get Response"):
+    user_input = st.text_input("Type your question below:")
+    if st.button("Submit"):
         if user_input:
-            creator_response = handle_creator_query(user_input)
-            if creator_response:
-                response = creator_response
-            else:
-                response = generate_jarvis_response(user_input)
-            st.success(f"**Jarvis:** {response}")
-    
-    # Handle the Enter key press for response
-    if user_input:
-        creator_response = handle_creator_query(user_input)
-        if creator_response:
-            response = creator_response
-        else:
+            st.session_state.chat_history.append(user_input)  # Append only user questions
             response = generate_jarvis_response(user_input)
-        st.success(f"**Jarvis:** {response}")
+            st.success(f"**Jarvis:** {response}")
 
 elif choice == "Tech News":
-    st.header("🌐 Latest Tech News")
+    st.header("Latest Tech News")
     news = fetch_news()
     if news:
         for title, description, url in news:
-            st.markdown(f"#### [{title}]({url})")
+            st.markdown(f"### [{title}]({url})")
             st.write(description)
             st.markdown("---")
     else:
         st.error("Unable to fetch news at this time.")
 
 elif choice == "About Jarvis":
-    st.header("👾 About Jarvis")
+    st.header("About Jarvis")
     st.write("Created by **Rehan Hussain** in collaboration with Google.")
     st.write(
         """
         Jarvis is your futuristic AI assistant, capable of answering questions,
         fetching the latest technology news, and providing intelligent insights.
         """
-    )
-    st.markdown(
-        """
-        <div style="text-align: center;">
-            <img src="https://i.imgur.com/1y5HY3L.png" alt="AI Graphic" style="width: 300px; margin-top: 20px;">
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    )       
