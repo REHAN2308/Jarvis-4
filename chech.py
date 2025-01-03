@@ -77,8 +77,8 @@ st.markdown(
 
 /* Sidebar styling */
 .stSidebar {
-    background: #1E1E2F; /* Dark blue background */
-    color: #FFFFFF; /* White text for better contrast */
+   background: linear-gradient(135deg, #1F4037, #1C1C1C);
+        color: #E8E8E8;
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
