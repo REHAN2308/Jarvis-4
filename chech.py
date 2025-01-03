@@ -2,7 +2,6 @@ import streamlit as st
 import base64
 import google.generativeai as genai
 import requests
-import time  # Added for loading animation
 
 # Encoded API keys (new keys encoded)
 gemini_encoded_key = "QUl6YVN5QWdDSkpWX0pUdzlhV3BhRUsxdTFyQVRDcVZ0N1FkdmtB"  # New Gemini API Key
@@ -15,54 +14,55 @@ news_api_key = base64.b64decode(news_encoded_key).decode('utf-8')
 # Configure Gemini API
 genai.configure(api_key=gemini_api_key)
 
-# Global Styling (including enhancements from the added code)
 st.markdown(
     """
     <style>
     /* Global body styling */
     body {
-        background: linear-gradient(135deg, #102A2A, #1B1F1F); /* Deep green to charcoal gradient */
-        color: #E8E8E8; /* Faded white text */
+        background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
+        color: #E8E8E8;
         font-family: 'Poppins', sans-serif;
         font-size: 16px;
+        margin: 0;
+        padding: 0;
     }
 
     /* Header styling */
     h1, h2, h3, h4, h5, h6 {
-        color: #2AFF80; /* Vibrant soft green accent */
+        color: #56CCF2;
         text-transform: uppercase;
         letter-spacing: 1.2px;
     }
 
-    /* Divider styling */
+    /* Fancy divider */
     .fancy-divider {
-        border-top: 2px solid #2AFF80; /* Green accent */
+        border-top: 2px solid #56CCF2;
         margin: 30px 0;
     }
 
     /* Button styling */
     .stButton button {
-        background: linear-gradient(90deg, #2AFF80, #1BBF5B); /* Gradient green button */
-        color: #FFFFFF; /* White text */
+        background: linear-gradient(90deg, #1F4037, #99F2C8);
+        color: #FFFFFF;
         border: none;
         border-radius: 25px;
         padding: 12px 20px;
         font-size: 16px;
-        font-weight: 600;
+        font-weight: bold;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
         cursor: pointer;
     }
     .stButton button:hover {
-        background: linear-gradient(90deg, #1BBF5B, #2AFF80); /* Reverse gradient */
+        background: linear-gradient(90deg, #99F2C8, #1F4037);
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
         transform: translateY(-2px);
     }
 
-    /* Input styling */
+    /* Text input styling */
     input {
-        background: #1C1C1C; /* Sleek dark background */
-        color: #FFFFFF; /* Bright white text */
+        background: #203A43; /* Updated background for better contrast */
+        color: #E8E8E8;
         border: 1px solid #333333;
         border-radius: 15px;
         padding: 12px;
@@ -70,29 +70,92 @@ st.markdown(
         box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
     }
-    input:hover, input:focus {
-        border-color: #2AFF80; /* Green border */
-        box-shadow: 0px 0px 5px rgba(42, 255, 128, 0.5); /* Subtle green glow */
-    }
     input::placeholder {
-        color: #AAAAAA; /* Neutral faded placeholder */
+        color: #D3D3D3; /* Adjusted placeholder color */
         font-style: italic;
+    }
+
+/* Sidebar styling */
+.stSidebar {
+    background: #1E1E2F; /* Dark blue background */
+    color: #FFFFFF; /* White text for better contrast */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Navigation Header */
+.stSidebar h1, .stSidebar h2, .stSidebar h3, .stSidebar p {
+    color: #FFFFFF; /* Set text to white for high contrast */
+    font-size: 16px; /* Adjust font size for readability */
+    font-weight: bold;
+}
+
+/* Navigation Text Styling */
+.stSidebar .radio > label {
+    color: #FFFFFF; /* Text color for radio labels */
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #2A2A40; /* Slightly lighter background for radio buttons */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.stSidebar .radio > label:hover {
+    background: #44446A; /* Slightly darker on hover */
+    color: #FFFFFF; /* Keep text visible */
+}
+
+.stSidebar .radio > label > input {
+    display: none; /* Hide default radio button */
+}
+
+.stSidebar .radio > label.selected {
+    background: #5656A1; /* Highlight for selected option */
+    color: #FFFFFF; /* Keep text color visible */
+}
+
+
+    /* Chat history styling */
+    .chat-history {
+        background: #1C1C1C;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
+        color: #FFFFFF;
+    }
+
+    /* Links styling */
+    a {
+        color: #56CCF2;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    a:hover {
+        text-decoration: underline;
+        color: #99F2C8;
     }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# Session State Initialization
+# Initialize session state for chat history
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
-# Sidebar: Chat History and Developer Info
+# Sidebar: Chat History and Navigation
 with st.sidebar:
+    st.subheader("Navigation")
+    menu = ["Ask Jarvis", "Tech News", "About Jarvis"]
+    choice = st.radio("Select a feature:", menu, key="navigation_menu")
     st.subheader("Chat History")
     if st.session_state.chat_history:
         for idx, message in enumerate(st.session_state.chat_history):
-            st.write(f"{idx+1}. {message}")
+            st.write(f"{idx + 1}. {message}")
     else:
         st.write("No chat history yet.")
     st.markdown("---")
@@ -118,35 +181,20 @@ def fetch_news():
         if news_data['status'] == 'ok':
             return [(article['title'], article['description'], article['url']) for article in news_data['articles'][:5]]
         else:
-            st.error(f"API Error: {news_data.get('message', 'Unknown error')}")
             return None
     except requests.exceptions.RequestException as e:
-        st.error(f"Error fetching news: {e}")
         return None
 
-# NLP functionality for creator-related questions
-def handle_creator_query(query):
-    keywords = ["creator", "developer", "made you", "created you", "built you", "design", "designer"]
-    if any(keyword in query.lower() for keyword in keywords):
-        return "I am developed by Rehan Hussain in collaboration with Google technology."
-    return None
-
-# Title and Navigation
-st.title("Jarvis")
-st.markdown('<div class="fancy-divider"></div>', unsafe_allow_html=True)
-menu = ["Ask Jarvis", "Tech News", "About Jarvis"]
-choice = st.sidebar.radio("Navigation", menu)
+# Title
+st.title("JARVIS")
 
 if choice == "Ask Jarvis":
     st.header("Ask Jarvis Anything!")
-    user_input = st.text_input("Ask a question... Press Enter to submit.", key="user_input")
-    if st.button("Get Response") or user_input:
-        with st.spinner("Processing your question..."):
-            time.sleep(1)  # Simulating response time
-            creator_response = handle_creator_query(user_input)
-            response = creator_response if creator_response else generate_jarvis_response(user_input)
-            st.session_state.chat_history.append(f"You: {user_input}")
-            st.session_state.chat_history.append(f"Jarvis: {response}")
+    user_input = st.text_input("Type your question below:")
+    if st.button("Submit"):
+        if user_input:
+            st.session_state.chat_history.append(user_input)  # Append only user questions
+            response = generate_jarvis_response(user_input)
             st.success(f"**Jarvis:** {response}")
 
 elif choice == "Tech News":
@@ -154,12 +202,18 @@ elif choice == "Tech News":
     news = fetch_news()
     if news:
         for title, description, url in news:
-            st.markdown(f"#### [{title}]({url})")
+            st.markdown(f"### [{title}]({url})")
             st.write(description)
             st.markdown("---")
+    else:
+        st.error("Unable to fetch news at this time.")
 
 elif choice == "About Jarvis":
     st.header("About Jarvis")
     st.write("Created by **Rehan Hussain** in collaboration with Google.")
-    st.write("Jarvis is your futuristic AI assistant, capable of answering questions, fetching tech news, and providing insights.")
-	
+    st.write(
+        """
+        Jarvis is your futuristic AI assistant, capable of answering questions,
+        fetching the latest technology news, and providing intelligent insights.
+        """
+    )
