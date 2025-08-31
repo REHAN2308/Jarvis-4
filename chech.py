@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st 
 import base64
 import google.generativeai as genai
 import requests
@@ -20,7 +20,7 @@ st.markdown(
     /* Global body styling */
     body {
         background: linear-gradient(135deg, #0F2027, #203A43, #2C5364);
-        color: #E8E8E8;
+        color: #F3904F
         font-family: 'Poppins', sans-serif;
         font-size: 16px;
         margin: 0;
@@ -121,7 +121,7 @@ st.markdown(
 
     /* Chat history styling */
     .chat-history {
-        background: #1C1C1C;
+        background: #4b4371
         border-radius: 12px;
         padding: 15px;
         box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.2);
@@ -161,7 +161,7 @@ with st.sidebar:
     st.markdown("---")
     st.subheader("Developer Info")
     st.write("Created by **Rehan Hussain**.")
-    st.write("Contact: rehan9644coc@gmail.com")
+    st.write("Contact: Email us not availble ")
 
 # Function to interact with Gemini API
 def generate_jarvis_response(query):
@@ -211,9 +211,6 @@ elif choice == "Tech News":
 elif choice == "About Jarvis":
     st.header("About Jarvis")
     st.write("Created by **Rehan Hussain** in collaboration with Google.")
-    st.write(
-        """
-        Jarvis is your futuristic AI assistant, capable of answering questions,
-        fetching the latest technology news, and providing intelligent insights.
+    st.write("""
         """
     )
