@@ -166,7 +166,7 @@ with st.sidebar:
 # Function to interact with Gemini API
 def generate_jarvis_response(query):
     try:
-        gemini_model = genai.GenerativeModel("gemini-1.5-flash")
+        gemini_model = genai.GenerativeModel("gemini-2.5-flash")
         response = gemini_model.generate_content(query)
         return response.text
     except Exception as e:
