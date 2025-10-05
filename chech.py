@@ -1,15 +1,11 @@
 import streamlit as st
-import base64
 from openai import OpenAI
 import requests
+import os
 
-# Encoded API keys (new keys encoded)
-openrouter_encoded_key = "c2stb3ItdjEtYzUwZjk3YTVhMGU4Y2ZmOGE5MTcyYWNiMTlhZDdlMWUxOGQ4ZTZkMWRkZjE1MjFjMDc0ZmYzNmJkMzUzOTA1Yw=="  # OpenRouter API Key
-news_encoded_key = "MzVkNjIzMGUwMWY5NDI0ZGIwYjdlOWNmZTg1YTUzOWQ="  # News API Key remains unchanged
-
-# Decoding API keys
-openrouter_api_key = base64.b64decode(openrouter_encoded_key).decode('utf-8')
-news_api_key = base64.b64decode(news_encoded_key).decode('utf-8')
+# API Keys - Set these as environment variables during deployment
+openrouter_api_key = os.getenv("OPENROUTER_API_KEY", "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")
+news_api_key = os.getenv("NEWS_API_KEY", "35d6230e01f9424db0b7e9cfe85a539d")
 
 # Configure OpenRouter API client
 client = OpenAI(
