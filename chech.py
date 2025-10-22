@@ -234,10 +234,15 @@ elif choice == "Tech News":
 
 elif choice == "About Jarvis":
     st.header("About Jarvis")
-    st.write("Created by **Rehan Hussain** powered by DeepSeek AI via OpenRouter.")
+    st.write("Created by **Rehan Hussain** powered by NVIDIA via OpenRouter.")
     st.write(
         """
-        Jarvis is your futuristic AI assistant, capable of answering questions,
+        Jarvis is your futuristic AI assistant, capable of answering questions, provding logics reasoning in friendly way
         fetching the latest technology news, and providing intelligent insights.
+
+
+
+
+        CAN YOU FIND AN EASTER EGG 
         """
     )
