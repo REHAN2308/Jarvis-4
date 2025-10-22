@@ -186,7 +186,7 @@ with st.sidebar:
 def generate_jarvis_response(query):
     try:
         response = client.chat.completions.create(
-            model="tngtech/deepseek-r1t2-chimera:free",
+            model="nvidia/nemotron-nano-9b-v2:free",
             messages=[
                 {"role": "system", "content": "You are Jarvis, a helpful and intelligent AI assistant."},
                 {"role": "user", "content": query}
